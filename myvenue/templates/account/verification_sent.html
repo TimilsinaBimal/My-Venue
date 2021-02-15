@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+{% url 'account_email' as email_url %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row  justify-content-center">
+    <div class="col-xs-11 col-md-6 content-section">
+            <h2 class="heading--2">{% trans "Verify Your E-mail Address" %}</h2>
+            <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link  provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+            <a href="{% url 'account_email' %}" class="btn btn-secondary">Resend Verification</a>
+            <a href="{% url 'account_email' %}" class="btn btn-primary">Change Email</a>
+            <form action="" method="post">
+              {% csrf_token %}
+                <button class="secondaryAction btn btn-secondary" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
+            </form>
+
+
+      </div>
+  </div>
+</div>
+
+{% endblock %}

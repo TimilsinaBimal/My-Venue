@@ -1,0 +1,89 @@
+{% extends "main.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block title %} Login | {% endblock title %}
+
+
+{% block content %}
+
+
+<section class="login-container">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-xs-12 col-sm-12 login-box">
+        <h2 class="text-center">Login</h2>
+        <form class="login" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+          <div class="row">
+
+          <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                  {% if form.errors %}
+                      {% for error in form.non_field_errors %}
+                        <p class="error">
+                          <fa class="fa fa-exclamation-circle"></fa> {{ error }}
+                        </p>
+
+                    {% endfor %}
+                  {% endif %}
+              </div>
+          <div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                {{form.login}}
+                {% if form.login.errors %}
+                {% for error in form.login.errors %}
+                <p class="error">
+                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                </p>
+                {% endfor %}
+              {% endif %}
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                {{form.password}}
+                {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                <p class="error">
+                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                </p>
+                {% endfor %}
+              {% endif %}
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="row form--group">
+                <div class="col-lg-6 col-xs-12 col-sm-12">
+                  <div class="custom-control custom-checkbox">
+                      {{form.remember}}
+                      <label class="custom-control-label" for="remember">Remember
+                    Me</label>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-xs-12 col-sm-12 text-right">
+                    <a href="{% url 'account_reset_password' %}">Forget Password?</a>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                <input type="submit" value="LOGIN" class="btn btn-primary">
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group text-center"><p>Don't have an account?
+                <a href="{% url 'account_signup' %}">Signup</a></p>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

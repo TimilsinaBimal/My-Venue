@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +27,36 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 360,
+    'width': 1120,
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'theme': 'modern',
+    'plugins': '''
+            textcolor save link image media preview codesample contextmenu
+            table code lists fullscreen  insertdatetime  nonbreaking
+            contextmenu directionality searchreplace wordcount visualblocks
+            visualchars code fullscreen autolink lists  charmap print  hr
+            anchor pagebreak
+            ''',
+    'toolbar1': '''
+            fullscreen preview bold italic underline | forecolor backcolor | alignleft alignright |
+            aligncenter alignjustify | indent outdent | bullist numlist table |
+            | link image media | codesample |
+            ''',
+    'toolbar2': '''
+            visualblocks visualchars |
+            charmap hr pagebreak nonbreaking anchor |  code |
+            ''',
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
+}
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +71,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'main',
+    'tinymce',
 ]
 SITE_ID = 1
 
@@ -58,7 +90,7 @@ ROOT_URLCONF = 'myvenue.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,7 +153,41 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+# ACCOUNT_FORMS = {
+#     'login': 'store.forms.CustomLoginForm',
+#     'signup': 'store.forms.SignUpForm',
+#     'add_email': 'allauth.account.forms.AddEmailForm',
+#     'change_password': 'allauth.account.forms.ChangePasswordForm',
+#     'set_password': 'allauth.account.forms.SetPasswordForm',
+#     'reset_password': 'allauth.account.forms.ResetPasswordForm',
+#     'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
+#     'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+# }
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+# Uncomment only if you want your verifications email to be sent in command line
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+# Only for Gmail May be different according to your SMTP
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'Your Username Here'
+EMAIL_HOST_PASSWORD = 'Your Password'
+EMAIL_USE_TLS = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

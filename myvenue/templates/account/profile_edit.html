@@ -1,0 +1,105 @@
+{% extends 'main.html' %}
+
+{% block title %} Edit Profile | {% endblock title %}
+
+{% block content %}
+
+
+<section id="breadcrumb">
+  <div class="container-fluid text-center">
+    <h1 class="heading--1">Edit Profile</h1>
+    <p class="location"><i class="fa fa-home"></i><a href="/">Home</a> > <a href="/accounts/edit-profile/">Edit Profile</a>
+    </p>
+  </div>
+</section>
+
+<section class="profile-edit-container">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-7 col-xs-12 col-sm-12 profile-edit-box">
+        <h2 class="text-center">Edit Profile</h2>
+        <form class="profile-edit" id="profile-edit" method="POST" action="{% url 'profile_edit' %}">
+        {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6 col-xs-12 col-sm-12">
+              <div class="form--group">
+                <input type="text" name="first_name" id="first_name" value="{{user.first_name}}" required>
+                {% if user_form.first_name.errors %}
+                {% for error in user_form.first_name.errors %}
+                <p class="error">
+                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                </p>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
+              <div class="form--group">
+                <input type="text" name="last_name" id="last_name" value="{{user.last_name}}" required>
+                {% if user_form.last_name.errors %}
+                {% for error in user_form.last_name.errors %}
+                <p class="error">
+                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                </p>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+              <p class="subheading">Email Address: <span>{{user.email}} | <a href="{% url 'account_email' %}">EDIT</a></span></p>
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                {{profile_form.phone}}
+                {% if profile_form.phone.errors %}
+                {% for error in profile_form.phone.errors %}
+                <p class="error">
+                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                </p>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
+              <div class="form--group">
+                {{profile_form.dob}}
+                {% if profile_form.dob.errors %}
+                {% for error in profile_form.dob.errors %}
+                <p class="error">
+                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                </p>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
+              <div class="form--group">
+                {{profile_form.gender}}
+                {% if profile_form.gender.errors %}
+                {% for error in profile_form.gender.errors %}
+                <p class="error">
+                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                </p>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                <input type="submit" value="Update Proifile" class="btn btn-primary">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}
+{% block script %}
+<script>
+$('.datepicker').datepicker();
+</script>
+{% endblock script %}

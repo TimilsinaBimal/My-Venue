@@ -1,0 +1,196 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} Profile | {% endblock title %}
+{% block content %}
+        <section class="profile-info">
+            <div class="container-fluid">
+                <div class="row justify-content-around">
+                    <div class="col-xs-11 col-md-5 col-lg-4 profile-details">
+                        <h5 class="text-left">Hello, {{user.first_name}} {{user.last_name}}</h5>
+                        <div class="other-details">
+                            <div class="account-details d-flex justify-content-between">
+                                <h5 class="text-left">Account Details</h5>
+                                <p class="text-right"><a href="{% url 'profile_edit' %}">Edit</a></p>
+                            </div>
+                            <div class="email d-flex justify-content-between">
+                                <p class="text-left">Email</p>
+                                <p class="text-right">{{user.email}}</p>
+                            </div>
+                            <div class="phone d-flex justify-content-between">
+                                <p class="text-left">Phone Number</p>
+                                <p class="text-right">{{profile.phone}}</p>
+                            </div>
+                            <div class="date-of-birth d-flex justify-content-between">
+                                <p class="text-left">Date of Birth</p>
+                                <p class="text-right">{{profile.dob}}</p>
+                            </div>
+                            <div class="gender d-flex justify-content-between">
+                                <p class="text-left">Gender</p>
+                                <p class="text-right">{{profile.get_gender_display}}</p>
+                            </div>
+
+                        </div>
+                        <div class="buttons my-3 d-flex justify-content-between">
+                            <a href="/accounts/password/change/" class="btn btn-primary">Change Password</a>
+                            <a href="/accounts/logout/" class="btn btn-secondary">Logout</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-11 col-md-7 col-lg-7 complete-details">
+                        <div class="row justify-content-between billing-shipping-details">
+                            <div class="col-xs-11 col-md-6 col-lg-6 billing-address">
+                                <div class="billing-details">
+                                {% if billing_address %}
+                                    <div class="heading d-flex justify-content-between">
+                                        <h5 class="text-left">Billing Details</h5>
+                                        <p class="text-right"><a href="{% url 'billing_address_edit' %}">Edit</a></p>
+                                    </div>
+                                    <div class="street_address d-flex justify-content-between">
+                                        <p class="text-left">Full Name</p>
+                                        <p class="text-right">{{billing_address.full_name}}</p>
+                                    </div>
+                                    <div class="street_address d-flex justify-content-between">
+                                        <p class="text-left">Email Address</p>
+                                        <p class="text-right">{{billing_address.email}}</p>
+                                    </div>
+                                    <div class="street_address d-flex justify-content-between">
+                                        <p class="text-left">Phone Number</p>
+                                        <p class="text-right">{{billing_address.phone}}</p>
+                                    </div>
+                                    <div class="street_address d-flex justify-content-between">
+                                        <p class="text-left">Street Address</p>
+                                        <p class="text-right">{{billing_address.street_address}}</p>
+                                    </div>
+
+                                    <div class="city_town d-flex justify-content-between">
+                                        <p class="text-left">City/ Town</p>
+                                        <p class="text-right">{{billing_address.town_city}}</p>
+                                    </div>
+                                    <div class="Country d-flex justify-content-between">
+                                        <p class="text-left">Country</p>
+                                        <p class="text-right">{{billing_address.get_country_display}}</p>
+                                    </div>
+                                    <div class="state d-flex justify-content-between">
+                                        <p class="text-left">State</p>
+                                        <p class="text-right">{{billing_address.get_state_display}}</p>
+                                    </div>
+                                    <div class="zip d-flex justify-content-between">
+                                        <p class="text-left">Postal Code</p>
+                                        <p class="text-right">{{billing_address.postal_code}}</p>
+                                    </div>
+                                    {% else %}
+                                    <div class="heading d-flex justify-content-between">
+                                        <h5 class="text-left">Billing Details</h5>
+                                        <p class="text-right"><a href="{% url 'add_billing_address' %}">Add</a></p>
+                                    </div>
+                                    <div class="street_address d-flex justify-content-between">
+                                        <p class="text-center">No Default Billing Address Found</p>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-xs-11 col-md-6 col-lg-6 shipping-address">
+                                <div class="shipping-details">
+                                {% if shipping_address %}
+                                    <div class="heading d-flex justify-content-between">
+                                        <h5 class="text-left">Shipping Details</h5>
+                                        <p class="text-right"><a href="{% url 'shipping_address_edit'%}">Edit</a></p>
+                                    </div>
+                                    <div class="street_address d-flex justify-content-between">
+                                        <p class="text-left">Full Name</p>
+                                        <p class="text-right">{{shipping_address.full_name}}</p>
+                                    </div>
+                                    <div class="street_address d-flex justify-content-between">
+                                        <p class="text-left">Email Address</p>
+                                        <p class="text-right">{{shipping_address.email}}</p>
+                                    </div>
+                                    <div class="street_address d-flex justify-content-between">
+                                        <p class="text-left">Phone Number</p>
+                                        <p class="text-right">{{shipping_address.phone}}</p>
+                                    </div>
+                                    <div class="street_address d-flex justify-content-between">
+                                        <p class="text-left">Street Address</p>
+                                        <p class="text-right">{{shipping_address.street_address}}</p>
+                                    </div>
+
+                                    <div class="city_town d-flex justify-content-between">
+                                        <p class="text-left">City/ Town</p>
+                                        <p class="text-right">{{shipping_address.town_city}}</p>
+                                    </div>
+                                    <div class="Country d-flex justify-content-between">
+                                        <p class="text-left">Country</p>
+                                        <p class="text-right">{{shipping_address.get_country_display}}</p>
+                                    </div>
+                                    <div class="state d-flex justify-content-between">
+                                        <p class="text-left">State</p>
+                                        <p class="text-right">{{shipping_address.get_state_display}}</p>
+                                    </div>
+                                    <div class="zip d-flex justify-content-between">
+                                        <p class="text-left">Postal Code</p>
+                                        <p class="text-right">{{shipping_address.postal_code}}</p>
+                                    </div>
+                                    {% else %}
+                                    <div class="heading d-flex justify-content-between">
+                                        <h5 class="text-left">Shipping Details</h5>
+                                        <p class="text-right"><a href="">Add</a></p>
+                                    </div>
+                                    <div class="street_address d-flex justify-content-between">
+                                        <p class="text-center">No default shipping address found.</p>
+
+                                    </div>
+                                {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-around">
+                    <div class="col-xs-12 col-md-12 col-lg-12 my-orders">
+                        <h3>My Orders</h3>
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Order#</th>
+                                    <th scope="col">Placed on</th>
+                                    <th colspan="2" scope="col">Items</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Update on</th>
+                                    <th scope="col">Total</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in orders.all %}
+                                <tr>
+                                    <td>{{order.order_id}}</td>
+                                    <td>{{order.ordered_date}}</td>
+                                    <td colspan="2" class="products">
+                                        <p>{{order.get_ordered_items}}</p>
+                                        {% comment %} <p>West Cork Whiskey</p> {% endcomment %}
+                                    </td>
+                                    <td>
+                                    {% if order.received %}
+                                    Received
+                                    {% elif order.being_delivered %}
+                                    Being Delivered
+                                    {% else %}
+                                    Order Confirmed
+                                    {% endif %}
+                                    </td>
+                                    <td>
+                                    {% if order.received %}
+                                    {{order.received_date}}
+                                    {% elif order.being_delivered %}
+                                    {{order.shipped_date}}
+                                    {% else %}
+                                    {{order.ordered_date}}
+                                    {% endif %}
+                                    </td>
+                                    <td>${{order.get_total}}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </section>
+{% endblock content %}

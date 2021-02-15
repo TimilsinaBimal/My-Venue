@@ -1,0 +1,112 @@
+{% extends 'main.html' %}
+
+{% load i18n %}
+
+{% block title %} Signup | {% endblock title %}
+
+{% block content %}
+
+<section class="register-container">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-7 col-xs-12 col-sm-12 register-box">
+        <h2 class="text-center">Register</h2>
+        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="form--group">
+                    {% if form.errors %}
+                        {% for error in form.non_field_errors %}
+                        <p class="error">
+                            <fa class="fa fa-exclamation-circle"></fa> {{ error }}
+                        </p>
+                      {% endfor %}
+                    {% endif %}
+                </div>
+            <div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                {{form.first_name}}
+                {% if form.first_name.errors %}
+                    {% for error in form.first_name.errors %}
+                    <p class="error">
+                        <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                    </p>
+                    {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                {% for error in form.last_name.errors %}
+                <p class="error">
+                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                </p>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                {{form.email}}
+                {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                <p class="error">
+                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                </p>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                {{form.username}}
+                {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                <p class="error">
+                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                </p>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                {{form.password1}}
+                {% if form.password1.errors %}
+                {% for error in form.password1.errors %}
+                <p class="error">
+                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                </p>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                {{form.password2}}
+                {% if form.password2.errors %}
+                {% for error in form.password2.errors %}
+                <p class="error">
+                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
+                </p>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form--group">
+                <input type="submit" value="Register Now" class="btn btn-primary">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}
