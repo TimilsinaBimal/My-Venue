@@ -154,16 +154,17 @@ USE_L10N = True
 USE_TZ = True
 
 
-# ACCOUNT_FORMS = {
-#     'login': 'store.forms.CustomLoginForm',
-#     'signup': 'store.forms.SignUpForm',
-#     'add_email': 'allauth.account.forms.AddEmailForm',
-#     'change_password': 'allauth.account.forms.ChangePasswordForm',
-#     'set_password': 'allauth.account.forms.SetPasswordForm',
-#     'reset_password': 'allauth.account.forms.ResetPasswordForm',
-#     'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
-#     'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
-# }
+ACCOUNT_FORMS = {
+    'login': 'main.forms.CustomLoginForm',
+    'signup': 'main.forms.SignUpForm',
+    'add_email': 'allauth.account.forms.AddEmailForm',
+    'change_password': 'allauth.account.forms.ChangePasswordForm',
+    'set_password': 'allauth.account.forms.SetPasswordForm',
+    'reset_password': 'allauth.account.forms.ResetPasswordForm',
+    'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
+    'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+}
+
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -176,11 +177,11 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 # Only for Gmail May be different according to your SMTP
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'Your Username Here'
-EMAIL_HOST_PASSWORD = 'Your Password'
-EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'Your Username Here'
+# EMAIL_HOST_PASSWORD = 'Your Password'
+# EMAIL_USE_TLS = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

@@ -1,89 +1,70 @@
-{% extends "main.html" %}
-
-{% load i18n %}
-{% load account socialaccount %}
-
-{% block title %} Login | {% endblock title %}
-
-
-{% block content %}
-
-
-<section class="login-container">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-6 col-xs-12 col-sm-12 login-box">
-        <h2 class="text-center">Login</h2>
-        <form class="login" method="POST" action="{% url 'account_login' %}">
-          {% csrf_token %}
-          <div class="row">
-
-          <div class="col-md-12 col-xs-12 col-sm-12">
-              <div class="form--group">
-                  {% if form.errors %}
-                      {% for error in form.non_field_errors %}
-                        <p class="error">
-                          <fa class="fa fa-exclamation-circle"></fa> {{ error }}
+{% extends "main.html" %} {% load i18n %} {% load account socialaccount %}
+{%block title %}Login {% endblock title%} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Sign In</h5>
+                    <form
+                        class="form-signin"
+                        method="POST"
+                        action="{% url 'account_login' %}"
+                    >
+                        {% csrf_token %}
+                        {% if form.errors %}
+                        {% for error in form.non_field_errors %}
+                        <p class="error" style='color:red;'>
+                            <fa class="fa fa-exclamation-circle"></fa>
+                            {{ error }}
                         </p>
 
-                    {% endfor %}
-                  {% endif %}
-              </div>
-          <div>
-            <div class="col-md-12 col-xs-12 col-sm-12">
-              <div class="form--group">
-                {{form.login}}
-                {% if form.login.errors %}
-                {% for error in form.login.errors %}
-                <p class="error">
-                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
-                </p>
-                {% endfor %}
-              {% endif %}
-              </div>
-            </div>
-            <div class="col-md-12 col-xs-12 col-sm-12">
-              <div class="form--group">
-                {{form.password}}
-                {% if form.password.errors %}
-                {% for error in form.password.errors %}
-                <p class="error">
-                  <fa class="fa fa-exclamation-circle"></fa> {{error}}
-                </p>
-                {% endfor %}
-              {% endif %}
-              </div>
-            </div>
-            <div class="col-md-12 col-xs-12 col-sm-12">
-              <div class="row form--group">
-                <div class="col-lg-6 col-xs-12 col-sm-12">
-                  <div class="custom-control custom-checkbox">
-                      {{form.remember}}
-                      <label class="custom-control-label" for="remember">Remember
-                    Me</label>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-xs-12 col-sm-12 text-right">
-                    <a href="{% url 'account_reset_password' %}">Forget Password?</a>
-                </div>
-            </div>
+                        {% endfor %}
+                        {% endif %}
+                        <div class="form-label-group">
+                            {{form.login}}
+                            <label for="inputEmail">Email address</label>
+                            {% if form.login.errors %}
+                            {% for error in form.login.errors %}
+                            <p class="error">
+                                <fa class="fa fa-exclamation-circle"></fa>
+                                {{error}}
+                            </p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
 
-            <div class="col-md-12 col-xs-12 col-sm-12">
-              <div class="form--group">
-                <input type="submit" value="LOGIN" class="btn btn-primary">
-              </div>
-            </div>
-            <div class="col-md-12 col-xs-12 col-sm-12">
-              <div class="form--group text-center"><p>Don't have an account?
-                <a href="{% url 'account_signup' %}">Signup</a></p>
-              </div>
-            </div>
-          </div>
-        </form>
+                        <div class="form-label-group">
+                            {{form.password}}
+                            <label for="inputPassword">Password</label>
+                            {% if form.password.errors %}
+                            {% for error in form.password.errors %}
+                            <p class="error">
+                                <fa class="fa fa-exclamation-circle"></fa>
+                                {{error}}
+                            </p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
 
-      </div>
+                        <div class="custom-control custom-checkbox mb-3">
+                            {{form.remember}}
+                            <label
+                                class="custom-control-label"
+                                for="customCheck1"
+                                >Remember password</label
+                            >
+                        </div>
+                        <button
+                            class="btn btn-lg btn-primary btn-block text-uppercase"
+                            type="submit"
+                            >Sign in</button
+                        >
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</section>
+</div>
 
 {% endblock content %}
