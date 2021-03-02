@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Venue
+from .models import Venue, Event, Order
 from django.db import models
 from tinymce.widgets import TinyMCE
 
@@ -21,3 +21,5 @@ class VenueAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Venue, VenueAdmin)
+admin.site.register(Event)
+admin.site.register(Order)

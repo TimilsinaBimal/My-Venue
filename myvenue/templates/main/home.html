@@ -1,5 +1,52 @@
 {% extends 'main.html' %}
+{%block title %}{% endblock title%}
 {% block content %}
-<div class="container">
-<h1 class="text-white text-center">MY VENUE</h1></div>
+        <div id="container">
+            <div id="bg">
+                <div id="color-overlay"></div>
+            </div>
+            <div class="sitetitle">
+                <h1>MY VENUE</h1>
+                <p>Search for the place that suits you best.</p>
+                <form method='GET' action="{% url 'search' %}">
+                    <div class="form-row">
+                        <div class="col-5">
+                            <input id="datepicker" class="form-control" placeholder="DD MMM YYYY" name="date" />
+                        </div>
+                        <div class="col-5">
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name='city'>
+                                <option selected>Select City</option>
+                                <option value="Butwal">Butwal</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 {% endblock content %}
+{% block script %}
+<script>
+    {% comment %} $('#datepicker').datepicker({
+        showOtherMonths: true
+    }); {% endcomment %}
+    var today, datepicker;
+    today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+    datepicker = $('#datepicker').datepicker({
+        minDate: today,
+        format: 'dd mmm yyyy',
+        header: true,
+        modal:true,
+        footer: true,
+        iconsLibrary: 'fontawesome'
+
+    });
+
+
+
+</script>
+{% endblock script %}

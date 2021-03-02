@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+{% block title %}{{result.name}} | {% endblock title %}
+{% block content %}
+        <div class="container mt-5">
+            <div class="card p-5 d-flex flex-row">
+                <div class='align-self-center'>
+                    <img height="100px" src="{{result.image.url}}" alt="{{result.name}}">
+                </div>
+                <div class="ml-5">
+                    <h3>{{result.name}}</h3>
+                    <p>{{result.description | safe}}</p>
+                    <div class="d-flex">
+                        <div class="one mr-3">
+                            <p class="bold"><span>Address:</span>{{result.address}}</p>
+                            <p class="bold"><span>Capacity:</span>{{result.capacity}}</p>
+                            <p class="bold"><span>City:</span>{{result.city}}</p>
+                            <p class="bold"><span>Email:</span>{{result.email}}</p>
+                        </div>
+                        <div class="two ml-3">
+                            <p class="bold"><span>price:</span>${{result.price}}</p>
+                            {% comment %} <p class="bold"><span>Events:</span></p> {% endcomment %}
+                            <p class="bold"><span>Street Number:</span>{{result.street_number}}</p>
+                            <p class="bold"><span>Phone Number:</span>{{result.phone_number}}</p>
+                        </div>
+                    </div>
+                    <h5>Add Extra events as your need<small>(These may cost extra money)</small></h5>
+                    <form method="POST" action="{% url 'checkout' result.get_url %}">
+                    {% csrf_token %}
+                    {% for event in result.events.all %}
+                    <div class="d-flex">
+                        <div class="one mr-3">
+                            <div class="custom-control custom-checkbox mr-sm-2">
+                                <input type="checkbox" class="custom-control-input" id='{{event.name}}' name='{{event.name}}'>
+                                <label class="custom-control-label" for="{{event.name}}">{{event.name}}</label>
+                            </div>
+                        </div>
+                        <div class="two ml-3">
+                            <p class="bold">${{event.price}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <button class="btn btn-primary" type="submit">PROCEES TO PAYMENT</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+
+{% endblock content %}

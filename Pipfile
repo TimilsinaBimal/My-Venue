@@ -8,9 +8,11 @@ django = "*"
 django-allauth = "*"
 mysqlclient = "*"
 pillow = "*"
+django-tinymce4-lite = "*"
 
 [dev-packages]
 yapf = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.7"

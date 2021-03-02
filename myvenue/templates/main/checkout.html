@@ -1,0 +1,71 @@
+{% extends 'main.html' %}
+{% block title %}Checkout | {% endblock title %}
+{% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-xl-9 mx-auto">
+                    <div class="card card-signin flex-row my-5">
+                        <div class="card-img-left d-none d-md-flex">
+                            <!-- Background image for card set in CSS! -->
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Checkout</h5>
+                            <form class="form-signin">
+                                <div class="form-label-group">
+                                    <input type="text" id="inputFullName" class="form-control" placeholder="Full Name"
+                                        required autofocus>
+                                    <label for="inputFullName">Full Name</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address"
+                                        required>
+                                    <label for="inputEmail">Email address</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="number" id="inputPhoneNumber" class="form-control"
+                                        placeholder="Phone Number" required>
+                                    <label for="inputPhoneNumber">Phone Number</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="text" id="inputAddress" class="form-control" placeholder="Address"
+                                        required>
+                                    <label for="inputAddress">Address</label>
+                                </div>
+
+                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">PROCEED TO
+                                    PAYMENT</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card card-signin flex-row my-5">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Total Price</h5>
+                            <div class="d-flex justify-content-between">
+                                <div class="titles">
+                                {% for event in events %}
+                                    <p class="bold">{{event}}</p>
+                                {% endfor %}
+                                    <p class="bold total">Grand Total</p>
+                                </div>
+                                <div class="prices">
+                                {% for price in prices %}
+                                    <p>${{price}}</p>
+                                {% endfor %}
+                                    <p class="total">${{total_price}}</p>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}
