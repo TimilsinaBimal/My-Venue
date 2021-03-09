@@ -19,7 +19,7 @@ body {
 
 #bg {
     background: url("https://i.ibb.co/sPCFhFC/oytx3fY.jpg") no-repeat center;
-    height: 100vh;
+    height: 92vh;
     width: 100vw;
 }
 
@@ -196,7 +196,8 @@ h1 {
 }
 
 
-.container p span {
+.container-fluid p span {
+    font-family: Poppins !important;
     font-weight: 500;
     margin-right: 5px;
 }

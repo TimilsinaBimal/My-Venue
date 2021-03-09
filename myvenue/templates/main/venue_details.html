@@ -1,10 +1,10 @@
 {% extends 'main.html' %}
 {% block title %}{{result.name}} | {% endblock title %}
 {% block content %}
-        <div class="container mt-5">
-            <div class="card p-5 d-flex flex-row">
+        <div class="container-fluid my-5 card p-5">
+            <div class="d-flex flex-row">
                 <div class='align-self-center'>
-                    <img height="100px" src="{{result.image.url}}" alt="{{result.name}}">
+                    <img height="400px" src="{{result.image.url}}" alt="{{result.name}}">
                 </div>
                 <div class="ml-5">
                     <h3>{{result.name}}</h3>
@@ -24,8 +24,10 @@
                         </div>
                     </div>
                     <h5>Add Extra events as your need<small>(These may cost extra money)</small></h5>
-                    <form method="POST" action="{% url 'checkout' result.get_url %}">
+                    <form method="POST" action="{% url 'checkout' %}">
                     {% csrf_token %}
+                    <input type="hidden" name='date' value="{{date}}">
+                    <input type="hidden" name='venue' value="{{venue}}">
                     {% for event in result.events.all %}
                     <div class="d-flex">
                         <div class="one mr-3">
@@ -39,11 +41,11 @@
                         </div>
                     </div>
                     {% endfor %}
-                    <button class="btn btn-primary" type="submit">PROCEES TO PAYMENT</button>
+                    <button class="btn btn-primary btn-block rounded-pill p-2" type="submit">PROCEES TO PAYMENT</button>
                     </form>
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 
 {% endblock content %}

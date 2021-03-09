@@ -1,0 +1,137 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} Payment | {% endblock title %}
+{% block content %}
+        <style>
+            #card-errors {
+                padding: 1em;
+                color: #fa755a;
+            }
+
+            .StripeElement {
+                outline: none;
+                border: .15em solid #DAE0E2;
+                padding: 1em 1.5em;
+                border-radius: 2em;
+                color: #aab7c4;
+                width: 100%;
+                -webkit-transition: .5s;
+                transition: .5s;
+            }
+
+            .StripeElement--focus {
+                border: .15em solid #5433ff;
+                -webkit-transition: .5s;
+                transition: .5s;
+            }
+
+            .StripeElement--invalid {
+                border-color: #fa755a;
+            }
+
+            .StripeElement--webkit-autofill {
+                background-color: #fefde5 !important;
+            }
+            #stripeBtn{
+                display: none;
+            }
+            .shipping .small-text{
+                font-size: .8em;
+            }
+        </style>
+        <section class="checkout-info">
+            <div class="container">
+                <div class="row justify-content-around">
+                    <div class="card card-signin my-5 p-5 col-xs-11 col-md-7 col-lg-6 biling-shipping-details">
+                        <h5 class="text-center mb-5">Debit or Credit Card Detail</h5>
+                        <div class="credit-card">
+                            <div class="new-card-form">
+                                <form action="{% url 'success' %}" method="POST" id="payment-form">
+                                {% csrf_token %}
+                                    <div class="stripe-form-row">
+                                        <div id="card-element" class="StripeElement">
+                                        </div>
+                                        <!-- Used to display form errors. -->
+                                        <div id="card-errors" role="alert"></div>
+                                    </div>
+                                        <div class="submit-button">
+                                            <button class='mt-3 btn btn-block btn-lg btn-primary rounded-pill text-center'>Submit Payment</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-11 col-md-5 col-lg-5 order-payment-details">
+                        <div class="card card-signin my-5 p-5">
+                            <div class="order-detail">
+                                <h5>Your Order</h5>
+                                <div class="product-list">
+                                    <div class="heading d-flex justify-content-between">
+                                        <p class="text-left">Venue Details</p>
+                                        <p class="text-right">Total</p>
+                                    </div>
+                                    <div class="listing">
+
+                                        <div class="product-single d-flex justify-content-between">
+                                            <p class="text-left">{{order.venue_name.name}}</p>
+                                            <p class="text-right">${{order.venue_name.price}}</p>
+                                        </div>
+                                        {% for event in order.selected_events.all %}
+                                            <div class="product-single d-flex justify-content-between">
+                                            <p class="text-left">{{event.name}}</p>
+                                            <p class="text-right">${{event.price}}</p>
+                                        </div>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                                <div class="order-total d-flex justify-content-between">
+                                    <p class="text-left">ORDER TOTAL</p>
+                                    <p class="text-right">${{order.get_total}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-signin flex-row my-5">
+                            <div class="card-body">
+                                <h5 class="text-center">Time Remaining</h5>
+                                <h2 class="card-title text-center" id="countdown"></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock content %}
+{% block script %}
+        <script src="https://js.stripe.com/v3/"></script>
+        <script src="{% static '/js/stripe.js' %}"></script>
+        <script>
+            seconds = Math.floor({{seconds}});
+            var timeleft = seconds;
+            var x = setInterval(function(){
+            if(timeleft <= 0){
+                clearInterval(x);
+                window.location.replace("/");
+            }
+            document.getElementById("countdown").innerHTML=timeleft+ 's';
+            timeleft -= 1;
+            }, 1000);
+
+
+
+            var currentCardForm = $('.current-card-form');
+            var newCardForm = $('.new-card-form');
+            var use_default_card = document.querySelector("input[name=use_default_card]");
+
+            use_default_card.addEventListener('change', function() {
+                if (this.checked) {
+                    newCardForm.hide();
+                    currentCardForm.show()
+                    $('#stripeBtn').show()
+                } else {
+                    newCardForm.show();
+                    currentCardForm.hide()
+                }
+            });
+        </script>
+{% endblock script %}

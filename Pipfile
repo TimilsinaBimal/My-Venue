@@ -9,6 +9,8 @@ django-allauth = "*"
 mysqlclient = "*"
 pillow = "*"
 django-tinymce4-lite = "*"
+verify-email = "*"
+stripe = "*"
 
 [dev-packages]
 yapf = "*"

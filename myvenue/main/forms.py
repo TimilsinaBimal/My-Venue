@@ -69,3 +69,37 @@ class SignUpForm(SignupForm):
             'id': 'inputConfirmPassword',
             'placeholder': 'Confirm Password'
         })
+
+
+class CheckoutForm(forms.Form):
+    full_name = forms.CharField(max_length=100, required=False, widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'id': 'inputFullName',
+            'placeholder': 'Full Name'
+        }))
+
+    email = forms.EmailField(required=False, widget=forms.EmailInput(
+        attrs={
+            'class': 'form-control',
+            'id': 'inputEmail',
+            'placeholder': 'Email Address'
+        }))
+
+    phone_number = forms.IntegerField(required=True, widget=forms.NumberInput(
+        attrs={
+            'class': 'form-control',
+            'id': 'inputPhoneNumber',
+            'placeholder': 'Phone Number'
+        }))
+
+    address = forms.CharField(max_length=200, required=True, widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'id': 'inputAddress',
+            'placeholder': 'Address'
+        }))
+
+
+class PaymentForm(forms.Form):
+    stripeToken = forms.CharField(required=False)

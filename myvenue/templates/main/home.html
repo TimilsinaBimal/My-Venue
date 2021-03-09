@@ -1,24 +1,24 @@
 {% extends 'main.html' %}
 {%block title %}{% endblock title%}
 {% block content %}
-        <div id="container">
+        <div id="container home">
             <div id="bg">
                 <div id="color-overlay"></div>
             </div>
             <div class="sitetitle">
                 <h1>MY VENUE</h1>
-                <p>Search for the place that suits you best.</p>
+                <p class="text-center text-white">Search for the place that suits you best.</p>
                 <form method='GET' action="{% url 'search' %}">
                     <div class="form-row">
                         <div class="col-5">
-                            <input id="datepicker" class="form-control" placeholder="DD MMM YYYY" name="date" />
+                            <input id="datepicker" class="form-control" placeholder="DD MMM YYYY" name="date" required />
                         </div>
                         <div class="col-5">
                             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name='city'>
                                 <option selected>Select City</option>
-                                <option value="Butwal">Butwal</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                {% for city in cities %}
+                                <option value="{{city}}">{{city}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-2">

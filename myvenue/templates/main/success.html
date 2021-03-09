@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+{% block title %} Success | {% endblock title %}
+{% block content %}
+
+<section id="sucsess">
+    <div class="container-fluid">
+        <div class="row card justify-content-center content-section">
+            <div class="col-xs-11 col-lg-5">
+                <div class="sign"><i class="fa fa-check"></i></div>
+                <h2 class="heading--2">Your Payment was Successful!</h2>
+                <p>Thank you for Booking with us.</p>
+                <a href="{% url 'home' %}" class="btn btn-primary">Go to Home</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

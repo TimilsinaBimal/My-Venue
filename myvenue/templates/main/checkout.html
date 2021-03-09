@@ -10,42 +10,74 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title text-center">Checkout</h5>
-                            <form class="form-signin">
+                            <form method="POST" action="{% url 'payment' %}" class="form-signin">
+                            {% csrf_token %}
                                 <div class="form-label-group">
-                                    <input type="text" id="inputFullName" class="form-control" placeholder="Full Name"
-                                        required autofocus>
+                                    <input type="text" id="inputUsername" class="form-control"
+                                        value="{{user.username}}" disabled>
+                                    <label for="inputUsername">Username</label>
+                                </div>
+
+                                <div class="form-label-group hidable_full_name">
+                                    {{form.full_name}}
                                     <label for="inputFullName">Full Name</label>
                                 </div>
 
+                                <div class="form-label-group hidable_default_full_name">
+                                    <input type="text" id="inputFullNameDefault" class="form-control"
+                                        value="{{user.first_name}} {{user.last_name}}" disabled>
+                                    <label for="inputFullNameDefault">Full Name </label>
+                                </div>
                                 <div class="form-label-group">
-                                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address"
-                                        required>
+                                    <div class="custom-control custom-checkbox mr-sm-2 ml-3">
+                                        <input type="checkbox" class="custom-control-input" id='default_name' name='default_name'>
+                                        <label class="custom-control-label" for="default_name">Use Default Full Name</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-label-group hidable_default_email">
+                                    <input type="email" id="inputEmailDefault" class="form-control" placeholder="Email address"
+                                        value="{{user.email}}" disabled>
+                                    <label for="inputEmailDefault">Email address</label>
+                                </div>
+                                <div class="form-label-group hidable_email">
+                                    {{form.email}}
                                     <label for="inputEmail">Email address</label>
+                                </div>
+                                <div class="form-label-group">
+                                    <div class="custom-control custom-checkbox mr-sm-2 ml-3">
+                                        <input type="checkbox" class="custom-control-input default_email_check" id='default_email' name='default_email'>
+                                        <label class="custom-control-label" for="default_email">Use Default Email Address</label>
+                                    </div>
                                 </div>
 
                                 <div class="form-label-group">
-                                    <input type="number" id="inputPhoneNumber" class="form-control"
-                                        placeholder="Phone Number" required>
+                                    {% comment %} <input type="number" id="inputPhoneNumber" class="form-control"
+                                        placeholder="Phone Number" required> {% endcomment %}
+                                        {{form.phone_number}}
                                     <label for="inputPhoneNumber">Phone Number</label>
                                 </div>
 
                                 <div class="form-label-group">
-                                    <input type="text" id="inputAddress" class="form-control" placeholder="Address"
-                                        required>
+                                    {% comment %} <input type="text" id="inputAddress" class="form-control" placeholder="Address"
+                                        required> {% endcomment %}
+                                        {{form.address}}
                                     <label for="inputAddress">Address</label>
                                 </div>
 
-                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">PROCEED TO
+                                <button type="submit" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">PROCEED TO
                                     PAYMENT</button>
-
                             </form>
+                            <button class="mt-3 btn btn-lg rounded-pill btn-danger btn-block text-uppercase" ><a href="{% url 'home' %}">GO BACK</a> </button>
+
                         </div>
+
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="card card-signin flex-row my-5">
                         <div class="card-body">
-                            <h5 class="card-title text-center">Total Price</h5>
+                            <h5 class="card-title text-center">{{result.name}}</h5>
                             <div class="d-flex justify-content-between">
                                 <div class="titles">
                                 {% for event in events %}
@@ -58,14 +90,67 @@
                                     <p>${{price}}</p>
                                 {% endfor %}
                                     <p class="total">${{total_price}}</p>
-
                                 </div>
                             </div>
-
+                        </div>
+                    </div>
+                    <div class="card card-signin flex-row my-5">
+                        <div class="card-body">
+                            <h5 class="text-center">Time Remaining</h5>
+                            <h2 class="card-title text-center" id="countdown"></h2>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
 {% endblock content %}
+{% block script %}
+<script>
+    var hidable_default_email = $(".hidable_default_email")
+    var hidable_email = $(".hidable_email")
+    var default_email_check = document.querySelector('input[name=default_email]');
+    var hidable_full_name = $(".hidable_full_name");
+    var hidable_default_full_name = $(".hidable_default_full_name");
+    var default_name_check = document.querySelector('input[name=default_name]');
+    var venue_field = $('.venue_field');
+
+
+    $(document).ready(function(){
+        hidable_default_email.hide();
+        hidable_default_full_name.hide();
+        venue_field.hide();
+    });
+    default_email_check.addEventListener('change',function(){
+            if(this.checked){
+                hidable_default_email.show();
+                hidable_email.hide();
+            }
+            else{
+                hidable_default_email.hide();
+                hidable_email.show();
+                console.log("UNChecked");
+            }
+        });
+
+    default_name_check.addEventListener('change',function(){
+        if(this.checked){
+            hidable_default_full_name.show();
+            hidable_full_name.hide();
+        }
+        else{
+            hidable_default_full_name.hide();
+            hidable_full_name.show();
+        }
+    });
+    seconds = Math.floor({{seconds}});
+    var timeleft = seconds;
+    var x = setInterval(function(){
+    if(timeleft <= 0){
+        clearInterval(x);
+        window.location.replace("/");
+    }
+    document.getElementById("countdown").innerHTML=timeleft+ 's';
+    timeleft -= 1;
+    }, 1000);
+</script>
+{% endblock script %}

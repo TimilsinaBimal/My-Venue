@@ -192,3 +192,5 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STRIPE_SECRET_KEY = 'sk_test_eebN4S2Kl85ZhNpTb7TFuWB700ovVfHdGb'
